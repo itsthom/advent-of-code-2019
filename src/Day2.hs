@@ -10,9 +10,9 @@ runIntcodeProgram inputFile = do
   file <- readFile inputFile
   let intCode = toIntCode file
   let intCode1202 = initialize intCode 12 2
-  let result1202 = execute intCode1202 0
+  let result1202 = head (execute intCode1202 0)
   let foundInput = findInput intCode 19690720
-  putStrLn ("D02.1 -> IntCode output is: " ++ (show (head result1202)))
+  putStrLn ("D02.1 -> IntCode output is: " ++ (show result1202))
   putStrLn ("D02.2 -> Required input is: " ++ (show foundInput))
 
 findInput :: [Int] -> Int -> Int
@@ -24,7 +24,7 @@ solution :: [Int] -> Int -> (Int,Int)
 solution code desiredOutput =
   case foundSolution of
     Just foundSolution -> foundSolution
-    Nothing -> (999999,999999)
+    Nothing -> (999999,999999) -- something has gone horribly wrong
   where problemSpace = [(x,y) | x <- [0..99], y <- [0..99]]
         foundSolution = L.find (testSolution code desiredOutput) problemSpace
 
@@ -45,9 +45,9 @@ operate :: (Int -> Int -> Int) -> [Int] -> Int -> [Int]
 operate operator code index = 
   execute result nextIndex
   where result = replaceAt code destination (operator num1 num2)
-        destination = code!!(index + 3)
         num1 = code!!(code!!(index + 1))
         num2 = code!!(code!!(index + 2))
+        destination = code!!(index + 3)
         nextIndex = index + 4
 
 initialize :: [Int] -> Int -> Int -> [Int]
