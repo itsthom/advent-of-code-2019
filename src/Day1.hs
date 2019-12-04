@@ -5,24 +5,24 @@ module Day1
 printTotalFuelRequired :: String -> IO ()
 printTotalFuelRequired inputFile = do
   file <- readFile inputFile
-  let masses = [parseMass x | x <- (lines file)]
-  let fuel = sum [naiveCalculateFuel x | x <- masses]
-  let actualFuel = sum [calculateFuel x | x <- masses]
-  putStrLn ("D01P1: Naive total fuel requred for all modules: " ++ (show fuel))
+  let masses = map parseMass (lines file)
+  let naiveFuel = sum (map naiveCalculateFuel masses)
+  let actualFuel = sum (map actualCalculateFuel masses)
+  putStrLn ("D01P1: Naive total fuel requred for all modules: " ++ (show naiveFuel))
   putStrLn ("D02P2: Actual total fuel requred for all modules: " ++ (show actualFuel))
 
 parseMass :: String -> Integer
-parseMass massString = read massString :: Integer
+parseMass massStr = read massStr :: Integer
 
 naiveCalculateFuel :: Integer -> Integer
 naiveCalculateFuel mass = floor (fromIntegral (mass)/3) - 2
 
-calculateFuel :: Integer -> Integer
-calculateFuel mass = 
+actualCalculateFuel :: Integer -> Integer
+actualCalculateFuel mass = 
   if
     fuel > 0
   then
-    fuel + (calculateFuel fuel)
+    fuel + (naiveCalculateFuel fuel)
   else
     0
   where fuel = naiveCalculateFuel mass
