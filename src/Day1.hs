@@ -9,7 +9,7 @@ printTotalFuelRequired inputFile = do
   let naiveFuel = sum (map naiveCalculateFuel masses)
   let actualFuel = sum (map actualCalculateFuel masses)
   putStrLn ("D01.1 -> Naive total fuel requred for all modules: " ++ (show naiveFuel))
-  putStrLn ("D02.2 -> Actual total fuel requred for all modules: " ++ (show actualFuel))
+  putStrLn ("D01.2 -> Actual total fuel requred for all modules: " ++ (show actualFuel))
 
 parseMass :: String -> Integer
 parseMass massStr = read massStr :: Integer
