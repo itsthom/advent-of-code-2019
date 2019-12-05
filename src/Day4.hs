@@ -3,13 +3,14 @@ module Day4
     ) where
 
 import qualified Data.List as L
+import qualified Data.Text as T
 
 countPasswords :: IO ()
 countPasswords = do
   let min = 138241
   let max = 674034
   let passwords = findPasswords min max
-  putStrLn ("D04.1 -> Number of valid passwords: " ++ (show (length passwords)))
+  putStrLn ("D04.2 -> Number of valid passwords: " ++ (show (length passwords)))
 
 findPasswords :: Int -> Int -> [Int]
 findPasswords min max = 
@@ -18,6 +19,10 @@ findPasswords min max =
 
 hasAdjacent :: Int -> Bool
 hasAdjacent x =
-  any (\z -> L.isInfixOf z xStr) doubles
+  any (weirdPredicate xStr) doubles
   where xStr = show x
         doubles = [[y,y] | y <- xStr]
+
+weirdPredicate :: String -> String -> Bool
+weirdPredicate str subStr =
+  L.isInfixOf subStr str && not (L.isInfixOf ((head subStr):subStr) str)
