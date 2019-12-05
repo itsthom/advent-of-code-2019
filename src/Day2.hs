@@ -3,7 +3,7 @@ module Day2
     ) where
 
 import qualified Data.List as L
-import qualified Data.Text as T
+import Utils
 
 runIntcodeProgram :: String -> IO ()
 runIntcodeProgram inputFile = do
@@ -44,24 +44,14 @@ execute code index
 operate :: (Int -> Int -> Int) -> [Int] -> Int -> [Int]
 operate operator code index = 
   execute result nextIndex
-  where result = replaceAt code destination (operator num1 num2)
+  where result = Utils.replaceAt code destination (operator num1 num2)
         num1 = code!!(code!!(index + 1))
         num2 = code!!(code!!(index + 2))
         destination = code!!(index + 3)
         nextIndex = index + 4
 
 initialize :: [Int] -> Int -> Int -> [Int]
-initialize code noun verb = replaceAt (replaceAt code 2 verb) 1 noun
-
-replaceAt :: [Int] -> Int -> Int -> [Int]
-replaceAt source index newValue =
-  x ++ newValue : ys
-  where (x,_:ys) = splitAt index source
+initialize code noun verb = Utils.replaceAt (Utils.replaceAt code 2 verb) 1 noun
 
 toIntCode :: String -> [Int]
-toIntCode input = map read (splitStr "," input) 
-
-splitStr :: String -> String -> [String]
-splitStr delimiter input =
-  map T.unpack textLst
-  where textLst = T.splitOn (T.pack delimiter) (T.pack input)
+toIntCode input = map read (Utils.splitStr "," input) 
