@@ -9,4 +9,4 @@ main :: IO ()
 main = do
   -- printTotalFuelRequired   "input/day1"
   -- runIntcodeProgram        "input/day2"
-  printNearestIntersection "input/day3"
+  printShortestDistanceToIntersection "input/day3"
