@@ -15,4 +15,4 @@ main = do
   -- printShortestDistanceToIntersection "input/day3"
   -- countPasswords
   -- runTESTIntcodeProgram        "input/day5"
-  testImage "input/day8"
+  printImage "input/day8"
