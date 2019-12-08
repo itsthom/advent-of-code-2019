@@ -5,7 +5,8 @@ import Lib
 -- import Day2
 -- import Day3
 -- import Day4
-import Day5
+-- import Day5
+import Day8
 
 main :: IO ()
 main = do
@@ -13,4 +14,5 @@ main = do
   -- runIntcodeProgram        "input/day2"
   -- printShortestDistanceToIntersection "input/day3"
   -- countPasswords
-  runTESTIntcodeProgram        "input/day5"
+  -- runTESTIntcodeProgram        "input/day5"
+  testImage "input/day8"
